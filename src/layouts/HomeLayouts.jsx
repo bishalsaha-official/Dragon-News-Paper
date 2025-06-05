@@ -1,5 +1,7 @@
 import Header from "../components/Header";
 import LatestNews from "../components/LatestNews";
+import LeftNav from "../components/layoutComponents/LeftNav";
+import RightNav from "../components/layoutComponents/RightNav";
 import Navbar from "../components/Navbar";
 
 const HomeLayouts = () => {
@@ -14,10 +16,14 @@ const HomeLayouts = () => {
             <nav className="mt-7">
                 <Navbar></Navbar>
             </nav>
-            <main className="mt-7 grid md:grid-cols-12 gap-4">
-                <aside className="col-span-3">left nav</aside>
+            <main className="mt-7 grid md:grid-cols-12 gap-5">
+                <aside className="col-span-3">
+                    <LeftNav></LeftNav>
+                    </aside>
                 <section className="col-span-6">center</section>
-                <aside className="col-span-3">righ nav</aside>
+                <aside className="col-span-3">
+                    <RightNav></RightNav>
+                </aside>
             </main>
         </div>
     );
