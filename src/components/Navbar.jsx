@@ -1,5 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import userLogo from '../assets/user.png'
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthProvider";
 
 const Navbar = () => {
     const links = <>
@@ -7,9 +9,22 @@ const Navbar = () => {
         <li><NavLink to="/about">About</NavLink></li>
         <li><NavLink to="/career">Career</NavLink></li>
     </>
+
+    const { user, logOutUser } = useContext(AuthContext)
+    const logout = () => {
+        logOutUser()
+            .then(() => {
+                // SignOut Success
+            })
+            .catch((error) => {
+                // An error happened.
+            });
+    }
+
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
+                <p className="text-xl text-gray-600">{user?.email}</p>
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                         <svg
@@ -38,7 +53,12 @@ const Navbar = () => {
             <div className="navbar-end">
                 <div className="flex items-center gap-3 justify-center">
                     <img src={userLogo} alt="" />
-                    <Link to="/auth/login" className="btn bg-[#403F3F] text-white">Login</Link>
+                    {
+                        user && user.email ?
+                            <button onClick={logout} className="btn bg-[#403F3F] text-white">LogOut</button>
+                            :
+                            <Link to="/auth/login" className="btn bg-[#403F3F] text-white">Login</Link>
+                    }
                 </div>
             </div>
         </div>

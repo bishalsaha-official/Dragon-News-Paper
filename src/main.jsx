@@ -11,6 +11,8 @@ import CategoryNews from './components/CategoryNews';
 import AuthLayout from './layouts/AuthLayout';
 import Login from './components/Login';
 import Register from './components/Register';
+import AuthProvider from './provider/AuthProvider';
+import NewsDetails from './components/NewsDetails';
 
 const router = createBrowserRouter([
   {
@@ -24,9 +26,14 @@ const router = createBrowserRouter([
       {
         path: '/category/:id',
         element: <CategoryNews></CategoryNews>,
-        loader: ({params}) => fetch(`https://openapi.programming-hero.com/api/news/category/${params.id}`)
+        loader: ({ params }) => fetch(`https://openapi.programming-hero.com/api/news/category/${params.id}`)
       }
     ]
+  },
+  {
+    path: '/news/:id',
+    element: <NewsDetails></NewsDetails>,
+    loader: ({params})=> fetch(`https://openapi.programming-hero.com/api/news/${params.id}`)
   },
   {
     path: '/auth',
@@ -46,6 +53,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 )
